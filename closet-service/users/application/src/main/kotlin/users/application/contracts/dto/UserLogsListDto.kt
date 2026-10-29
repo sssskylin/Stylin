@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UserLogsListDto(
-    val logs: List<users.application.contracts.dto.UserLogDto>
+    val logs: List<UserLogDto>
 )

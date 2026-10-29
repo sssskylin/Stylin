@@ -1,8 +1,9 @@
 package wardrobe.application.services
 
+import wardrobe.application.contracts.WardrobeValidator
 import wardrobe.domain.exceptions.InvalidWardrobeDataException
 
-class DefaultWardrobeValidator : wardrobe.application.contracts.WardrobeValidator {
+class DefaultWardrobeValidator : WardrobeValidator {
 
     private companion object {
         const val BOARD_NAME_MAX = 100

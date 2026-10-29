@@ -10,4 +10,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.5.18")
 
     testImplementation(kotlin("test-junit5"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+    testImplementation("io.mockk:mockk:1.14.11")
+    testImplementation("org.assertj:assertj-core:3.25.3")
 }

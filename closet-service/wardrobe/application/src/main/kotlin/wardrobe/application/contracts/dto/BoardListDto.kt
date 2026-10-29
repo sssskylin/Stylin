@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class BoardListDto(
-    val boards: List<wardrobe.application.contracts.dto.BoardDto>
+    val boards: List<BoardDto>
 )

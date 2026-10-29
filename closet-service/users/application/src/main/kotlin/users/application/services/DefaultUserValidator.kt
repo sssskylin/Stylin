@@ -3,7 +3,7 @@ package users.application.services
 import users.application.contracts.UserValidator
 import users.domain.exceptions.InvalidUserDataException
 
-class DefaultUserValidator : users.application.contracts.UserValidator {
+class DefaultUserValidator : UserValidator {
 
     private companion object {
         val EMAIL = Regex("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$")

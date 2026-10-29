@@ -6,5 +6,5 @@ data class AccessToken(
     val value: String,
     val expiresAt: Instant,
 ) {
-    override fun toString() = "users.domain.AccessToken(expiresAt=$expiresAt)"
+    override fun toString() = "AccessToken(expiresAt=$expiresAt)"
 }

@@ -1,12 +1,20 @@
 package wardrobe.application.services
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import wardrobe.domain.Board
 import wardrobe.infrastructure.abstractions.BoardRepository
 import wardrobe.infrastructure.abstractions.ItemRepository
 import wardrobe.infrastructure.abstractions.ImageStorage
 import wardrobe.infrastructure.abstractions.TransactionRunner
 import wardrobe.domain.exceptions.BoardNotFoundException
-import org.slf4j.LoggerFactory
+import wardrobe.application.contracts.BoardService
+import wardrobe.application.contracts.WardrobeValidator
+import wardrobe.application.contracts.dto.BoardDto
+import wardrobe.application.contracts.dto.BoardListDto
+import wardrobe.application.contracts.dto.BoardWithItemsDto
+import wardrobe.application.contracts.mapping.WardrobeMapper
+import wardrobe.application.contracts.requests.CreateBoardRequest
+import wardrobe.application.contracts.requests.RenameBoardRequest
 import java.util.UUID
 
 class DefaultBoardService(
@@ -14,14 +22,14 @@ class DefaultBoardService(
     private val items: ItemRepository,
     private val storage: ImageStorage,
     private val tx: TransactionRunner,
-    private val validator: wardrobe.application.contracts.WardrobeValidator,
-    private val mapper: wardrobe.application.contracts.mapping.WardrobeMapper,
+    private val validator: WardrobeValidator,
+    private val mapper: WardrobeMapper,
     private val ids: () -> UUID = UUID::randomUUID,
-) : wardrobe.application.contracts.BoardService {
+) : BoardService {
 
-    private val log = LoggerFactory.getLogger(_root_ide_package_.wardrobe.application.services.DefaultBoardService::class.java)
+    private val log = KotlinLogging.logger {}
 
-    override fun create(req: wardrobe.application.contracts.requests.CreateBoardRequest): wardrobe.application.contracts.dto.BoardDto {
+    override fun create(req: CreateBoardRequest): BoardDto {
         val title = validator.boardName(req.title)
         val board = Board(
             id = ids(),
@@ -33,19 +41,19 @@ class DefaultBoardService(
         return mapper.toDto(board)
     }
 
-    override fun get(userId: UUID, boardId: UUID): wardrobe.application.contracts.dto.BoardWithItemsDto = tx.inTransaction {
+    override fun get(userId: UUID, boardId: UUID): BoardWithItemsDto = tx.inTransaction {
         val board = boards.findById(boardId, userId) ?: throw BoardNotFoundException()
         val boardItems = items.findByBoard(boardId, userId)
         mapper.toDto(board, boardItems)
     }
 
-    override fun list(userId: UUID): wardrobe.application.contracts.dto.BoardListDto =
+    override fun list(userId: UUID): BoardListDto =
         tx.inTransaction {
-            _root_ide_package_.wardrobe.application.contracts.dto.BoardListDto(
+            BoardListDto(
                 boards.findAll(userId).map { mapper.toDto(it) })
         }
 
-    override fun rename(req: wardrobe.application.contracts.requests.RenameBoardRequest): wardrobe.application.contracts.dto.BoardDto {
+    override fun rename(req: RenameBoardRequest): BoardDto {
         val newTitle = validator.boardName(req.title)
         return tx.inTransaction {
             val current = boards.findByIdForUpdate(req.boardId, req.userId) ?: throw BoardNotFoundException()

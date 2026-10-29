@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class AuthDto(
-    val user: users.application.contracts.dto.UserDto,
+    val user: UserDto,
     val accessToken: String,
     val expiresAt: String,
 )

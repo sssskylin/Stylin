@@ -98,7 +98,6 @@ class S3ImageStorage(private val config: S3Config) : ImageStorage, AutoCloseable
                 .build()
         ).url().toString()
 
-    /** Для локальной разработки. В проде бакет создаётся инфраструктурой. */
     fun ensureBucketExists() {
         try {
             client.headBucket { it.bucket(config.bucket) }

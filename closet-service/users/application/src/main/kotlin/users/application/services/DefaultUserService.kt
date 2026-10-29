@@ -1,5 +1,19 @@
 package users.application.services
 
+import users.application.contracts.UserService
+import users.application.contracts.UserValidator
+import users.application.contracts.dto.AuthDto
+import users.application.contracts.dto.UserDto
+import users.application.contracts.dto.UserLogsListDto
+import users.application.contracts.dto.UserListDto
+import users.application.contracts.mapping.UserMapper
+import users.application.contracts.requests.ChangeBioRequest
+import users.application.contracts.requests.ChangeEmailRequest
+import users.application.contracts.requests.ChangeNameRequest
+import users.application.contracts.requests.ChangeUsernameRequest
+import users.application.contracts.requests.DeleteAccountRequest
+import users.application.contracts.requests.LoginRequest
+import users.application.contracts.requests.RegisterRequest
 import users.domain.User
 import users.domain.UserLogType
 import users.infrastructure.abstractions.PasswordHasher
@@ -23,12 +37,12 @@ class DefaultUserService(
     private val tokens: TokenIssuer,
     private val tx: TransactionRunner,
     private val clock: Clock,
-    private val validator: users.application.contracts.UserValidator,
-    private val mapper: users.application.contracts.mapping.UserMapper,
+    private val validator: UserValidator,
+    private val mapper: UserMapper,
     private val ids: () -> UUID = UUID::randomUUID,
-) : users.application.contracts.UserService {
+) : UserService {
 
-    override fun register(req: users.application.contracts.requests.RegisterRequest): users.application.contracts.dto.AuthDto {
+    override fun register(req: RegisterRequest): AuthDto {
         val email = validator.email(req.email)
         val username = validator.username(req.username)
         val name = validator.name(req.name)
@@ -53,7 +67,7 @@ class DefaultUserService(
         return mapper.toDto(AuthResult(user, tokens.issue(user.id)))
     }
 
-    override fun login(req: users.application.contracts.requests.LoginRequest): users.application.contracts.dto.AuthDto {
+    override fun login(req: LoginRequest): AuthDto {
         val normalized = validator.email(req.email)
         val user = users.findByEmail(normalized)
         if (user == null || !hasher.matches(req.password, user.passwordHash)) {
@@ -64,18 +78,18 @@ class DefaultUserService(
         return mapper.toDto(AuthResult(user, tokens.issue(user.id)))
     }
 
-    override fun getUserInfo(userId: UUID): users.application.contracts.dto.UserDto = tx.inTransaction {
+    override fun getUserInfo(userId: UUID): UserDto = tx.inTransaction {
         val user = users.findById(userId) ?: throw UserNotFoundException()
         log(user.id, UserLogType.PROFILE_VIEWED)
         mapper.toUserDto(user)
     }
 
-    fun getAllUsers(): users.application.contracts.dto.UserListDto = tx.inTransaction {
+    fun getAllUsers(): UserListDto = tx.inTransaction {
         val allUsers = users.findAll()
         mapper.toUserListDto(allUsers)
     }
 
-    override fun logs(userId: UUID, limit: Int): users.application.contracts.dto.UserLogsListDto = tx.inTransaction {
+    override fun logs(userId: UUID, limit: Int): UserLogsListDto = tx.inTransaction {
         users.findById(userId) ?: throw UserNotFoundException()
         log(userId, UserLogType.LOGS_VIEWED)
 
@@ -83,7 +97,7 @@ class DefaultUserService(
         mapper.toUserLogListDto(userLogs)
     }
 
-    override fun updateEmail(req: users.application.contracts.requests.ChangeEmailRequest): users.application.contracts.dto.UserDto =
+    override fun updateEmail(req: ChangeEmailRequest): UserDto =
         mutate(req.userId, UserLogType.EMAIL_CHANGED) { user ->
             requirePassword(user, req.currentPassword)
             val newEmail = validator.email(req.newEmail)
@@ -92,7 +106,7 @@ class DefaultUserService(
             user.copy(email = newEmail)
         }
 
-    override fun updateUsername(req: users.application.contracts.requests.ChangeUsernameRequest): users.application.contracts.dto.UserDto =
+    override fun updateUsername(req: ChangeUsernameRequest): UserDto =
         mutate(req.userId, UserLogType.USERNAME_CHANGED) { user ->
             val newUsername = validator.username(req.newUsername)
             if (newUsername == user.username) return@mutate user
@@ -100,21 +114,21 @@ class DefaultUserService(
             user.copy(username = newUsername)
         }
 
-    override fun updateName(req: users.application.contracts.requests.ChangeNameRequest): users.application.contracts.dto.UserDto =
+    override fun updateName(req: ChangeNameRequest): UserDto =
         mutate(req.userId, UserLogType.NAME_CHANGED) { user ->
             val newName = validator.name(req.newName)
             if (newName == user.name) return@mutate user
             user.copy(name = newName)
         }
 
-    override fun updateBio(req: users.application.contracts.requests.ChangeBioRequest): users.application.contracts.dto.UserDto =
+    override fun updateBio(req: ChangeBioRequest): UserDto =
         mutate(req.userId, UserLogType.BIO_CHANGED) { user ->
             val newBio = validator.bio(req.newBio)
             if (newBio == user.bio) return@mutate user
             user.copy(bio = newBio)
         }
 
-    override fun deleteAccount(req: users.application.contracts.requests.DeleteAccountRequest) {
+    override fun deleteAccount(req: DeleteAccountRequest) {
         tx.inTransaction {
             val user = users.findById(req.userId) ?: throw UserNotFoundException()
             requirePassword(user, req.currentPassword)
@@ -127,7 +141,7 @@ class DefaultUserService(
         userId: UUID,
         logType: UserLogType,
         block: (User) -> User,
-    ): users.application.contracts.dto.UserDto = tx.inTransaction {
+    ): UserDto = tx.inTransaction {
         val user = users.findById(userId) ?: throw UserNotFoundException()
         val updated = block(user)
         if (updated !== user) {
