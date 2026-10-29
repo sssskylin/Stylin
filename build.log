@@ -1,0 +1,176 @@
+ Image closet-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 499B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 471B 0.0s done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:25-jre
+#3 DONE 1.2s
+
+#4 [internal] load metadata for docker.io/library/gradle:9.1.0-jdk25
+#4 DONE 1.3s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
+#5 DONE 0.0s
+
+#6 [build 1/6] FROM docker.io/library/gradle:9.1.0-jdk25@sha256:d2f954187670397de6dd42c5c3a9d4535409b590059c6d248ff2a59ba67cecc3
+#6 resolve docker.io/library/gradle:9.1.0-jdk25@sha256:d2f954187670397de6dd42c5c3a9d4535409b590059c6d248ff2a59ba67cecc3 0.0s done
+#6 DONE 0.0s
+
+#7 [stage-1 1/3] FROM docker.io/library/eclipse-temurin:25-jre@sha256:78f1f183913482ef390c2722f46c3f0ce76ada341d69590e7c482ec943ee72d5
+#7 resolve docker.io/library/eclipse-temurin:25-jre@sha256:78f1f183913482ef390c2722f46c3f0ce76ada341d69590e7c482ec943ee72d5 0.0s done
+#7 DONE 0.0s
+
+#8 [stage-1 2/3] WORKDIR /opt/app
+#8 CACHED
+
+#9 [internal] load build context
+#9 transferring context: 223.89kB 0.2s done
+#9 DONE 0.2s
+
+#10 [build 2/6] WORKDIR /src
+#10 CACHED
+
+#11 [build 3/6] COPY . .
+#11 DONE 0.4s
+
+#12 [build 4/6] COPY gradle /gradle
+#12 DONE 0.0s
+
+#13 [build 5/6] RUN chmod +x ./gradlew
+#13 DONE 0.6s
+
+#14 [build 6/6] RUN ./gradlew -p closet-service :app:installDist --no-daemon
+#14 0.360 Downloading https://services.gradle.org/distributions/gradle-9.2.0-bin.zip
+#14 1.708 ............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+#14 91.60 WARNING: A restricted method in java.lang.System has been called
+#14 91.60 WARNING: java.lang.System::load has been called by net.rubygrapefruit.platform.internal.NativeLibraryLoader in an unnamed module (file:/root/.gradle/wrapper/dists/gradle-9.2.0-bin/11i5gvueggl8a5cioxuftxrik/gradle-9.2.0/lib/native-platform-0.22-milestone-29.jar)
+#14 91.60 WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+#14 91.60 WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+#14 91.60 
+#14 91.79 
+#14 91.79 Welcome to Gradle 9.2.0!
+#14 91.79 
+#14 91.79 Here are the highlights of this release:
+#14 91.79  - Windows ARM support
+#14 91.79  - Improved publishing APIs
+#14 91.79  - Better guidance for dependency verification failures
+#14 91.79 
+#14 91.79 For more details see https://docs.gradle.org/9.2.0/release-notes.html
+#14 91.80 
+#14 91.89 To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.2.0/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+#14 93.99 Daemon will be stopped at the end of the build 
+#14 249.9 > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 249.9 > Task :users:application:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 249.9 > Task :users:domain:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 250.2 > Task :app:processResources
+#14 250.7 > Task :wardrobe:domain:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 275.3 > Task :wardrobe:domain:processResources NO-SOURCE
+#14 275.3 > Task :wardrobe:infrastructure:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 275.3 > Task :wardrobe:infrastructure:processResources
+#14 275.3 > Task :wardrobe:application:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 275.4 > Task :wardrobe:application:processResources NO-SOURCE
+#14 275.4 > Task :wardrobe:presentation:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 275.4 > Task :wardrobe:presentation:processResources NO-SOURCE
+#14 275.4 > Task :users:domain:processResources NO-SOURCE
+#14 275.4 > Task :users:infrastructure:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 275.4 > Task :users:infrastructure:processResources
+#14 275.4 > Task :users:application:processResources NO-SOURCE
+#14 275.4 > Task :users:presentation:checkKotlinGradlePluginConfigurationErrors SKIPPED
+#14 275.4 > Task :users:presentation:processResources NO-SOURCE
+#14 279.9 > Task :users:domain:compileKotlin
+#14 280.7 > Task :wardrobe:domain:compileKotlin
+#14 282.7 > Task :users:domain:compileJava NO-SOURCE
+#14 282.7 > Task :users:domain:classes UP-TO-DATE
+#14 282.7 > Task :wardrobe:domain:compileJava NO-SOURCE
+#14 282.7 > Task :wardrobe:domain:classes UP-TO-DATE
+#14 282.8 > Task :wardrobe:domain:jar
+#14 282.8 > Task :users:domain:jar
+#14 302.2 > Task :users:infrastructure:compileKotlin
+#14 302.2 > Task :users:infrastructure:compileJava NO-SOURCE
+#14 302.2 > Task :users:infrastructure:classes
+#14 302.3 > Task :users:infrastructure:jar
+#14 303.3 > Task :wardrobe:infrastructure:compileKotlin
+#14 303.3 > Task :wardrobe:infrastructure:compileJava NO-SOURCE
+#14 303.3 > Task :wardrobe:infrastructure:classes
+#14 303.3 > Task :wardrobe:infrastructure:jar
+#14 305.7 > Task :users:application:compileKotlin
+#14 305.7 > Task :users:application:compileJava NO-SOURCE
+#14 305.7 > Task :users:application:classes UP-TO-DATE
+#14 305.8 > Task :users:application:jar
+#14 312.0 
+#14 312.0 > Task :wardrobe:application:compileKotlin
+#14 312.0 w: file:///src/closet-service/wardrobe/application/src/main/kotlin/wardrobe/application/services/DefaultItemService.kt:108:24 Unnecessary safe call on a non-null receiver of type 'String'.
+#14 312.0 w: file:///src/closet-service/wardrobe/application/src/main/kotlin/wardrobe/application/services/DefaultItemService.kt:118:26 Unnecessary safe call on a non-null receiver of type 'String'.
+#14 312.0 w: file:///src/closet-service/wardrobe/application/src/main/kotlin/wardrobe/application/services/DefaultItemService.kt:129:30 'fun warn(msg: String?, arg1: Any?, arg2: Any?): Unit' is deprecated. Use warn {} instead.
+#14 312.2 
+#14 312.2 > Task :wardrobe:application:compileJava NO-SOURCE
+#14 312.2 > Task :wardrobe:application:classes UP-TO-DATE
+#14 312.3 > Task :wardrobe:application:jar
+#14 313.4 > Task :users:presentation:compileKotlin
+#14 313.4 > Task :users:presentation:compileJava NO-SOURCE
+#14 313.4 > Task :users:presentation:classes UP-TO-DATE
+#14 313.4 > Task :users:presentation:jar
+#14 314.4 > Task :wardrobe:presentation:compileKotlin
+#14 314.5 > Task :wardrobe:presentation:compileJava NO-SOURCE
+#14 314.5 > Task :wardrobe:presentation:classes UP-TO-DATE
+#14 314.5 > Task :wardrobe:presentation:jar
+#14 320.5 e: file:///src/closet-service/app/src/main/kotlin/app/AppModule.kt:35:27 Unresolved reference 'DefaultUserService'.
+#14 320.5 
+#14 320.5 > Task :app:compileKotlin FAILED
+#14 320.9 
+#14 320.9 20 actionable tasks: 20 executed
+#14 320.9 FAILURE: Build failed with an exception.
+#14 320.9 
+#14 320.9 * What went wrong:
+#14 320.9 Execution failed for task ':app:compileKotlin'.
+#14 320.9 > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+#14 320.9    > Compilation error. See log for more details
+#14 320.9 
+#14 320.9 * Try:
+#14 320.9 > Run with --stacktrace option to get the stack trace.
+#14 320.9 > Run with --info or --debug option to get more log output.
+#14 320.9 > Run with --scan to generate a Build Scan (powered by Develocity).
+#14 320.9 > Get more help at https://help.gradle.org.
+#14 320.9 
+#14 320.9 BUILD FAILED in 5m 20s
+#14 ERROR: process "/bin/sh -c ./gradlew -p closet-service :app:installDist --no-daemon" did not complete successfully: exit code: 1
+------
+ > [build 6/6] RUN ./gradlew -p closet-service :app:installDist --no-daemon:
+320.9 > A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+320.9    > Compilation error. See log for more details
+320.9 
+320.9 * Try:
+320.9 > Run with --stacktrace option to get the stack trace.
+320.9 > Run with --info or --debug option to get more log output.
+320.9 > Run with --scan to generate a Build Scan (powered by Develocity).
+320.9 > Get more help at https://help.gradle.org.
+320.9 
+320.9 BUILD FAILED in 5m 20s
+------
+Dockerfile:13
+
+--------------------
+
+  11 |     
+
+  12 |     # Запускаем сборку с указанием папки проекта
+
+  13 | >>> RUN ./gradlew -p closet-service :app:installDist --no-daemon
+
+  14 |     
+
+  15 |     
+
+--------------------
+
+failed to solve: process "/bin/sh -c ./gradlew -p closet-service :app:installDist --no-daemon" did not complete successfully: exit code: 1
+
+
+
+View build details: docker-desktop://dashboard/build/default/default/2nvemclb8fpin6smowv15vzv5
+

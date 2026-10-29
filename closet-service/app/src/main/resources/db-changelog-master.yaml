@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: migrations/001-create-users.sql
+  - include:
+      file: migrations/001-create-boards-items.sql

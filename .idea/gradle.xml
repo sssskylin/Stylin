@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/buildSrc" name="buildSrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/buildSrc" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/closet-service" name="closet-service">
+                <projects>
+                  <project path="$PROJECT_DIR$/closet-service" />
+                  <project path="$PROJECT_DIR$/closet-service/app" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/closet-service/users" name="users">
+                <projects>
+                  <project path="$PROJECT_DIR$/closet-service/users" />
+                  <project path="$PROJECT_DIR$/closet-service/users/application" />
+                  <project path="$PROJECT_DIR$/closet-service/users/domain" />
+                  <project path="$PROJECT_DIR$/closet-service/users/infrastructure" />
+                  <project path="$PROJECT_DIR$/closet-service/users/presentation" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/closet-service/wardrobe" name="wardrobe">
+                <projects>
+                  <project path="$PROJECT_DIR$/closet-service/wardrobe" />
+                  <project path="$PROJECT_DIR$/closet-service/wardrobe/application" />
+                  <project path="$PROJECT_DIR$/closet-service/wardrobe/domain" />
+                  <project path="$PROJECT_DIR$/closet-service/wardrobe/infrastructure" />
+                  <project path="$PROJECT_DIR$/closet-service/wardrobe/presentation" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/closet-service" />
+            <option value="$PROJECT_DIR$/closet-service/app" />
+            <option value="$PROJECT_DIR$/closet-service/users" />
+            <option value="$PROJECT_DIR$/closet-service/users/application" />
+            <option value="$PROJECT_DIR$/closet-service/users/domain" />
+            <option value="$PROJECT_DIR$/closet-service/users/infrastructure" />
+            <option value="$PROJECT_DIR$/closet-service/users/presentation" />
+            <option value="$PROJECT_DIR$/closet-service/wardrobe" />
+            <option value="$PROJECT_DIR$/closet-service/wardrobe/application" />
+            <option value="$PROJECT_DIR$/closet-service/wardrobe/domain" />
+            <option value="$PROJECT_DIR$/closet-service/wardrobe/infrastructure" />
+            <option value="$PROJECT_DIR$/closet-service/wardrobe/presentation" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
