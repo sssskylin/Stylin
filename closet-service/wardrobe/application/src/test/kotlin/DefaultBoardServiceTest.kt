@@ -61,7 +61,6 @@ class DefaultBoardServiceTest {
         }
         mapper = mockk(relaxed = true)
 
-        // По умолчанию транзакция выполняет блок «как есть»
         every { tx.inTransaction<Any?>(any()) } answers {
             firstArg<() -> Any?>().invoke()
         }
